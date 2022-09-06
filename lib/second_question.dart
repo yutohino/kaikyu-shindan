@@ -1,15 +1,14 @@
 // ignore_for_file: prefer_const_constructors
 import 'package:flutter/material.dart';
+import 'package:kaikyu_shindan/result.dart';
 
 class SecondQuestion extends StatelessWidget {
   SecondQuestion(this.previousPoints);
 
   final int previousPoints;
-  int currentPoints = 0;
 
   @override
   Widget build(BuildContext context) {
-    print(previousPoints);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -22,7 +21,7 @@ class SecondQuestion extends StatelessWidget {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text('あなたは何者?',
+              Text('あなたの恋人の誕生日です。\nあなたは何をプレゼントしますか?',
                   style: TextStyle(fontSize: 24, color: Colors.black87)),
               SizedBox(height: 30),
               Column(
@@ -30,11 +29,12 @@ class SecondQuestion extends StatelessWidget {
                 children: [
                   OutlinedButton(
                     onPressed: () {
-                      // ノンケ:1pt
+                      // 食いかけのガム:1pt
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SecondQuestion(1)));
+                              builder: (context) =>
+                                  Result(calculatePoints(1))));
                     },
                     style: OutlinedButton.styleFrom(
                       minimumSize: Size.fromHeight(50.0),
@@ -43,18 +43,19 @@ class SecondQuestion extends StatelessWidget {
                         width: 1.5,
                       ),
                     ),
-                    child: Text('ノンケ',
+                    child: Text('食いかけのガム',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(height: 10),
                   OutlinedButton(
                     onPressed: () {
-                      // ホモ:2pt
+                      // 拾った輪ゴム:2pt
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SecondQuestion(1)));
+                              builder: (context) =>
+                                  Result(calculatePoints(2))));
                     },
                     style: OutlinedButton.styleFrom(
                       minimumSize: Size.fromHeight(50.0),
@@ -63,18 +64,19 @@ class SecondQuestion extends StatelessWidget {
                         width: 1.5,
                       ),
                     ),
-                    child: Text('ホモ',
+                    child: Text('拾った輪ゴム',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
                   SizedBox(height: 10),
                   OutlinedButton(
                     onPressed: () {
-                      // バイ:3pt
+                      // 爪切り800個:3pt
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) => SecondQuestion(1)));
+                              builder: (context) =>
+                                  Result(calculatePoints(3))));
                     },
                     style: OutlinedButton.styleFrom(
                       minimumSize: Size.fromHeight(50.0),
@@ -83,7 +85,7 @@ class SecondQuestion extends StatelessWidget {
                         width: 1.5,
                       ),
                     ),
-                    child: Text('バイ',
+                    child: Text('爪切り800個',
                         style: TextStyle(
                             fontSize: 18, fontWeight: FontWeight.bold)),
                   ),
@@ -94,5 +96,11 @@ class SecondQuestion extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  /// 第1問と第2問のポイントの合計値を計算して返す。
+  /// [selectedPoints]は第2問で選択した選択肢のポイント。
+  int calculatePoints(int selectedPoints) {
+    return previousPoints + selectedPoints;
   }
 }
