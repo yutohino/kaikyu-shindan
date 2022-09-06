@@ -1,20 +1,24 @@
 // ignore_for_file: prefer_const_constructors
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:kaikyu_shindan/first_question.dart';
 
 class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text('階級診断')),
+        centerTitle: true,
+        title: Text('階級診断'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'あなたの階級は!?',
+              'あなたの階級は!?\n今こそ見せる時!!\n烈火の如く燃え上がるこの熱き魂を!!!',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 fontSize: 20,
               ),
@@ -22,7 +26,8 @@ class Home extends StatelessWidget {
             SizedBox(height: 30),
             ElevatedButton(
               onPressed: () {
-                // TODO: 3択質問の画面に遷移
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => FirstQuestion()));
               },
               style: ElevatedButton.styleFrom(
                   padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10)),
