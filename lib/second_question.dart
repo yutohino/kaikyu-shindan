@@ -7,6 +7,12 @@ class SecondQuestion extends StatelessWidget {
 
   final int previousPoints;
 
+  /// 第1問と第2問のポイントの合計値を計算して返す。
+  /// [selectedPoints]は第2問で選択した選択肢のポイント。
+  int calculatePoints(int selectedPoints) {
+    return previousPoints + selectedPoints;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -96,11 +102,5 @@ class SecondQuestion extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  /// 第1問と第2問のポイントの合計値を計算して返す。
-  /// [selectedPoints]は第2問で選択した選択肢のポイント。
-  int calculatePoints(int selectedPoints) {
-    return previousPoints + selectedPoints;
   }
 }
