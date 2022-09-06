@@ -25,3 +25,9 @@ dev_dependencies:
 flutter:
 
   uses-material-design: true
+  assets:
+    - images/badge_shosa.png
+    - images/badge_taisho.png
+    - images/badge_daimyo.png
+    - images/badge_goketsu.png
+    - images/badge_gunshin.png
