@@ -4,8 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:kaikyu_shindan/second_question.dart';
 
 class FirstQuestion extends StatelessWidget {
-  // TODO: 診断途中で、他の思いアプリをたくさん起動して戻った時どうなる？（ポイントとか）
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

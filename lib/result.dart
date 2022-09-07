@@ -13,6 +13,8 @@ class Result extends StatelessWidget {
   final String goketsu = '豪傑';
   final String gunshin = '軍神';
 
+  final myController = TextEditingController();
+
   /// 合計点数から診断結果(階級)を取得する
   /// [points]は合計点数
   String getKaikyuResult(int points) {
@@ -75,67 +77,70 @@ class Result extends StatelessWidget {
       ),
       body: SingleChildScrollView(
         child: Container(
+          width: double.infinity,
           padding: EdgeInsets.all(8),
-          child: Center(
-            child: Column(
-              children: [
-                RichText(
-                  text: TextSpan(
-                    style: TextStyle(color: Colors.black87, fontSize: 32),
-                    children: <TextSpan>[
-                      TextSpan(text: 'あなたは '),
-                      TextSpan(
-                          text: getKaikyuResult(pointsResult),
-                          style: TextStyle(
-                              color: Colors.cyan,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 40)),
-                      TextSpan(text: ' です!!!'),
-                    ],
-                  ),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              RichText(
+                text: TextSpan(
+                  style: TextStyle(color: Colors.black87, fontSize: 32),
+                  children: <TextSpan>[
+                    TextSpan(text: 'あなたは '),
+                    TextSpan(
+                        text: getKaikyuResult(pointsResult),
+                        style: TextStyle(
+                            color: Colors.cyan,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 40)),
+                    TextSpan(text: ' です!!!'),
+                  ],
                 ),
-                SizedBox(height: 10),
-                Image.asset(getKaikyuImageURL(pointsResult)),
-                SizedBox(height: 10),
-                Form(
-                  key: _formKey,
-                  child: TextFormField(
-                    // TODO: 名前の入力欄（次の画面で名前とバッジを表示して、「スクショしていいよ！」と表示する
-                    decoration: InputDecoration(
-                        contentPadding: EdgeInsets.all(10),
-                        hintText: '名前を入力しよう!!',
-                        border: OutlineInputBorder()),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return '名前を入力してね!!';
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                SizedBox(height: 20),
-                ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => NameAndResult()));
+              ),
+              SizedBox(height: 10),
+              Image.asset(getKaikyuImageURL(pointsResult)),
+              SizedBox(height: 10),
+              Form(
+                key: _formKey,
+                child: TextFormField(
+                  controller: myController,
+                  decoration: InputDecoration(
+                      contentPadding: EdgeInsets.all(10),
+                      hintText: '名前を入力しよう!!',
+                      border: OutlineInputBorder()),
+                  validator: (value) {
+                    if (value == null || value.isEmpty) {
+                      return '名前を入力してね!!';
                     }
+                    return null;
                   },
-                  style: ElevatedButton.styleFrom(
-                      padding: EdgeInsets.only(
-                          left: 20, top: 10, right: 20, bottom: 10)),
-                  child: Text(
-                    '名前を入力完了',
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
+                ),
+              ),
+              SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  if (_formKey.currentState!.validate()) {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => NameAndResult(
+                                myController.text,
+                                getKaikyuResult(pointsResult),
+                                getKaikyuImageURL(pointsResult))));
+                  }
+                },
+                style: ElevatedButton.styleFrom(
+                    padding: EdgeInsets.only(
+                        left: 20, top: 10, right: 20, bottom: 10)),
+                child: Text(
+                  '名前を入力完了',
+                  style: TextStyle(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
