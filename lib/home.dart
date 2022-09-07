@@ -30,7 +30,8 @@ class Home extends StatelessWidget {
                     MaterialPageRoute(builder: (context) => FirstQuestion()));
               },
               style: ElevatedButton.styleFrom(
-                  padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10)),
+                  padding: EdgeInsets.only(
+                      left: 20, top: 10, right: 20, bottom: 10)),
               child: Text(
                 'スタート',
                 style: TextStyle(
