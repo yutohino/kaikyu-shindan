@@ -65,66 +65,77 @@ class Result extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _formKey = GlobalKey<FormState>();
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         centerTitle: true,
         automaticallyImplyLeading: false,
         title: Text('診断結果'),
       ),
-      body: Container(
-        padding: EdgeInsets.all(8),
-        child: Center(
-          child: Column(
-            children: [
-              RichText(
-                text: TextSpan(
-                  style: TextStyle(color: Colors.black87, fontSize: 32),
-                  children: <TextSpan>[
-                    TextSpan(text: 'あなたは '),
-                    TextSpan(
-                        text: getKaikyuResult(pointsResult),
-                        style: TextStyle(
-                            color: Colors.cyan,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 40)),
-                    TextSpan(text: ' です!!!'),
-                  ],
-                ),
-              ),
-              SizedBox(height: 20),
-              Image.asset(getKaikyuImageURL(pointsResult)),
-              SizedBox(height: 20),
-              TextFormField(
-                // TODO: 名前の入力欄（次の画面で名前とバッジを表示して、「スクショしていいよ！」と表示する
-                decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(10),
-                    hintText: '名前を入力して下さい',
-                    border: OutlineInputBorder()),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter some text';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  // TODO: TextFormFieldに文字が入力されていたら、次の画面に遷移する
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => NameAndResult()));
-                },
-                style: ElevatedButton.styleFrom(
-                    padding: EdgeInsetsDirectional.fromSTEB(20, 10, 20, 10)),
-                child: Text(
-                  '名前を入力完了',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
+      body: SingleChildScrollView(
+        child: Container(
+          padding: EdgeInsets.all(8),
+          child: Center(
+            child: Column(
+              children: [
+                RichText(
+                  text: TextSpan(
+                    style: TextStyle(color: Colors.black87, fontSize: 32),
+                    children: <TextSpan>[
+                      TextSpan(text: 'あなたは '),
+                      TextSpan(
+                          text: getKaikyuResult(pointsResult),
+                          style: TextStyle(
+                              color: Colors.cyan,
+                              fontWeight: FontWeight.bold,
+                              fontSize: 40)),
+                      TextSpan(text: ' です!!!'),
+                    ],
                   ),
                 ),
-              ),
-            ],
+                SizedBox(height: 10),
+                Image.asset(getKaikyuImageURL(pointsResult)),
+                SizedBox(height: 10),
+                Form(
+                  key: _formKey,
+                  child: TextFormField(
+                    // TODO: 名前の入力欄（次の画面で名前とバッジを表示して、「スクショしていいよ！」と表示する
+                    decoration: InputDecoration(
+                        contentPadding: EdgeInsets.all(10),
+                        hintText: '名前を入力しよう!!',
+                        border: OutlineInputBorder()),
+                    validator: (value) {
+                      if (value == null || value.isEmpty) {
+                        return '名前を入力してね!!';
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: () {
+                    if (_formKey.currentState!.validate()) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => NameAndResult()));
+                    }
+                  },
+                  style: ElevatedButton.styleFrom(
+                      padding: EdgeInsets.only(
+                          left: 20, top: 10, right: 20, bottom: 10)),
+                  child: Text(
+                    '名前を入力完了',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),
