@@ -18,6 +18,9 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.deepOrange,
       ),
+      routes: {
+        "/home": (context) => Home(),
+      },
       home: Home(),
       localizationsDelegates: const [
         GlobalMaterialLocalizations.delegate,
